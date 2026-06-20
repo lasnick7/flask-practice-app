@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="card">
+    <h2>Добавить цитату</h2>
+
+    <form method="POST">
+        <label for="text">Текст цитаты</label>
+        <textarea id="text" name="text" required></textarea>
+
+        <label for="author">Автор</label>
+        <input id="author" type="text" name="author" required>
+
+        <button type="submit">Добавить</button>
+    </form>
+</section>
+{% endblock %}

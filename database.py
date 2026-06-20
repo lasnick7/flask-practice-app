@@ -38,3 +38,15 @@ def get_all_quotes():
     connection.close()
 
     return quotes
+
+
+def add_quote(text, author):
+    connection = get_connection()
+
+    connection.execute("""
+        INSERT INTO quotes (text, author)
+        VALUES (?, ?)
+    """, (text, author))
+
+    connection.commit()
+    connection.close()

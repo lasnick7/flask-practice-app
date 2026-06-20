@@ -1,6 +1,6 @@
-from database import get_all_quotes, init_database
+from database import add_quote, get_all_quotes, init_database
 
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
 
@@ -24,6 +24,19 @@ def quotes_list():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+@app.route("/add", methods=["GET", "POST"])
+def add_quote_page():
+    if request.method == "POST":
+        text = request.form["text"]
+        author = request.form["author"]
+
+        add_quote(text, author)
+
+        return redirect("/quotes")
+
+    return render_template("add_quote.html")
 
 
 if __name__ == "__main__":
