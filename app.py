@@ -1,4 +1,5 @@
 from random import choice
+from database import init_database
 
 from flask import Flask, render_template
 
@@ -34,4 +35,5 @@ def about():
 
 
 if __name__ == "__main__":
+    init_database()
     app.run(debug=True)
