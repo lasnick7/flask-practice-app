@@ -2,8 +2,31 @@
 
 {% block content %}
 <section class="card">
-    <h2>Случайная цитата</h2>
-    <p>{{ quote }}</p>
-    <a href="/quotes">Показать другую цитату</a>
+    <h2>Список цитат</h2>
+
+    {% if quotes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Цитата</th>
+                    <th>Автор</th>
+                    <th>Дата добавления</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quote in quotes %}
+                    <tr>
+                        <td>{{ quote["id"] }}</td>
+                        <td>{{ quote["text"] }}</td>
+                        <td>{{ quote["author"] }}</td>
+                        <td>{{ quote["created_at"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Пока в базе нет цитат.</p>
+    {% endif %}
 </section>
 {% endblock %}

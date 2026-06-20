@@ -1,16 +1,8 @@
-from random import choice
-from database import init_database
+from database import get_all_quotes, init_database
 
 from flask import Flask, render_template
 
 app = Flask(__name__)
-
-quotes = [
-    "Computer science is no more about computers than astronomy is about telescopes.",
-    "To understand recursion you must first understand recursion.",
-    "The limits of my language are the limits of my mind.",
-    "Mathematics is the key and door to the sciences.",
-]
 
 
 @app.route("/")
@@ -24,9 +16,9 @@ def hello(name):
 
 
 @app.route("/quotes")
-def random_quote():
-    quote = choice(quotes)
-    return render_template("quotes.html", quote=quote)
+def quotes_list():
+    quotes = get_all_quotes()
+    return render_template("quotes.html", quotes=quotes)
 
 
 @app.route("/about")

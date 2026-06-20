@@ -25,3 +25,20 @@ nav a {
     padding: 25px;
     border-radius: 10px;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #f0f0f0;
+}

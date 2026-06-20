@@ -24,3 +24,17 @@ def init_database():
 
     connection.commit()
     connection.close()
+
+
+def get_all_quotes():
+    connection = get_connection()
+
+    quotes = connection.execute("""
+        SELECT id, text, author, created_at
+        FROM quotes
+        ORDER BY created_at DESC
+    """).fetchall()
+
+    connection.close()
+
+    return quotes
