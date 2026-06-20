@@ -4,6 +4,9 @@ from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
 
+with app.app_context():
+    init_database()
+
 
 @app.route("/")
 def index():
@@ -46,5 +49,5 @@ def delete_quote_page(quote_id):
 
 
 if __name__ == "__main__":
-    init_database()
+    # init_database()
     app.run(debug=True)
