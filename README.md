@@ -1,3 +1,5 @@
+[![Maintainability](https://qlty.sh/gh/lasnick7/projects/flask-practice-app/maintainability.svg)](https://qlty.sh/gh/lasnick7/projects/flask-practice-app)
+
 # Flask Quote Manager
 
 Учебное веб-приложение на Flask, созданное в рамках практики по веб-разработке.
