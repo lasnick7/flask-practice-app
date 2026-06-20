@@ -1,64 +1,48 @@
-import sqlite3
+import os
+
+from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
+
+load_dotenv()
+
+db = SQLAlchemy()
 
 
-DATABASE_NAME = "database.db"
+class Quote(db.Model):
+    __tablename__ = "quotes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+    author = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
 
 
-def get_connection():
-    connection = sqlite3.connect(DATABASE_NAME)
-    connection.row_factory = sqlite3.Row
-    return connection
+def init_database(app):
+    database_url = os.getenv("DATABASE_URL")
 
+    if not database_url:
+        database_url = "sqlite:///database.db"
 
-def init_database():
-    connection = get_connection()
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    connection.execute("""
-        CREATE TABLE IF NOT EXISTS quotes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            text TEXT NOT NULL,
-            author TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
+    db.init_app(app)
 
-    connection.commit()
-    connection.close()
+    with app.app_context():
+        db.create_all()
 
 
 def get_all_quotes():
-    connection = get_connection()
-
-    quotes = connection.execute("""
-        SELECT id, text, author, created_at
-        FROM quotes
-        ORDER BY created_at DESC
-    """).fetchall()
-
-    connection.close()
-
-    return quotes
+    return Quote.query.order_by(Quote.created_at.desc()).all()
 
 
 def add_quote(text, author):
-    connection = get_connection()
+    quote = Quote(text=text, author=author)
+    db.session.add(quote)
+    db.session.commit()
 
-    connection.execute("""
-        INSERT INTO quotes (text, author)
-        VALUES (?, ?)
-    """, (text, author))
-
-    connection.commit()
-    connection.close()
-    
 
 def delete_quote(quote_id):
-    connection = get_connection()
-
-    connection.execute("""
-        DELETE FROM quotes
-        WHERE id = ?
-    """, (quote_id,))
-
-    connection.commit()
-    connection.close()
+    quote = Quote.query.get_or_404(quote_id)
+    db.session.delete(quote)
+    db.session.commit()

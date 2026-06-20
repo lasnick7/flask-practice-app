@@ -1,12 +1,10 @@
-from database import add_quote, delete_quote, get_all_quotes, init_database
-
 from flask import Flask, redirect, render_template, request
 
+from database import add_quote, delete_quote, get_all_quotes, init_database
+
+
 app = Flask(__name__)
-
-with app.app_context():
-    init_database()
-
+init_database(app)
 
 @app.route("/")
 def index():
@@ -49,5 +47,4 @@ def delete_quote_page(quote_id):
 
 
 if __name__ == "__main__":
-    # init_database()
     app.run(debug=True)

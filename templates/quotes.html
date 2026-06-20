@@ -18,12 +18,12 @@
             <tbody>
                 {% for quote in quotes %}
                     <tr>
-                        <td>{{ quote["id"] }}</td>
-                        <td>{{ quote["text"] }}</td>
-                        <td>{{ quote["author"] }}</td>
-                        <td>{{ quote["created_at"] }}</td>
+                        <td>{{ quote.id }}</td>
+                        <td>{{ quote.text }}</td>
+                        <td>{{ quote.author }}</td>
+                        <td>{{ quote.created_at }}</td>
                         <td>
-                            <form method="POST" action="/delete/{{ quote['id'] }}">
+                            <form method="POST" action="/delete/{{ quote.id }}">
                                 <button type="submit">Удалить</button>
                             </form>
                         </td>
