@@ -1,4 +1,4 @@
-from database import add_quote, get_all_quotes, init_database
+from database import add_quote, delete_quote, get_all_quotes, init_database
 
 from flask import Flask, redirect, render_template, request
 
@@ -37,6 +37,12 @@ def add_quote_page():
         return redirect("/quotes")
 
     return render_template("add_quote.html")
+
+
+@app.route("/delete/<int:quote_id>", methods=["POST"])
+def delete_quote_page(quote_id):
+    delete_quote(quote_id)
+    return redirect("/quotes")
 
 
 if __name__ == "__main__":

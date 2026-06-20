@@ -64,3 +64,12 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+td form {
+    margin: 0;
+}
+
+td button {
+    background: #c0392b;
+    color: white;
+    border: none

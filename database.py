@@ -50,3 +50,15 @@ def add_quote(text, author):
 
     connection.commit()
     connection.close()
+    
+
+def delete_quote(quote_id):
+    connection = get_connection()
+
+    connection.execute("""
+        DELETE FROM quotes
+        WHERE id = ?
+    """, (quote_id,))
+
+    connection.commit()
+    connection.close()

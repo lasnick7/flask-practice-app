@@ -12,6 +12,7 @@
                     <th>Цитата</th>
                     <th>Автор</th>
                     <th>Дата добавления</th>
+                    <th>Действие</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,11 @@
                         <td>{{ quote["text"] }}</td>
                         <td>{{ quote["author"] }}</td>
                         <td>{{ quote["created_at"] }}</td>
+                        <td>
+                            <form method="POST" action="/delete/{{ quote['id'] }}">
+                                <button type="submit">Удалить</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
