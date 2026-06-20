@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: flask-practice-app
+    env: python
+    buildCommand: "uv sync"
+    startCommand: "uv run gunicorn app:app"
